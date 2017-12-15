@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Input user</title>
+</head>
+<body>
+	<center>
+	<p><h2>Input User Data</h2>
+		<form action="{{ url_for('proses_inputuser') }}" method="post">	
+			<table border="0">
+				<tr>
+					<td>Nama</td>
+					<td>:</td>
+					<td><input type="text" name="nama_user"></td>
+				</tr>
+				<tr>
+					<td>Password</td>
+					<td>:</td>
+					<td><input type="password" name="password_user"></td>
+				</tr>
+			</table>
+			<input type="submit" value="Simpan">
+			<input type="reset" value="Reset">
+		</form>
+	</center>
+</body>
+</html>

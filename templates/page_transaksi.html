@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Transaksi</title>
+</head>
+<body>
+	<form action="{{ url_for('prosestransaksi') }}", method="post">
+		<table border="1">
+			<tr>
+				<td>Komponen</td>
+				<td>:</td>
+				<td>
+					<select name="pilih_komponen">
+					{% for komponen in komponen_list %}
+						<option>{{ komponen.deskripsi }}</option>
+					{% endfor %}
+					</select>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" name="kirim" value="Kirim">
+		<input type="reset" value="Reset">
+	</form>	
+</body>
+</html>

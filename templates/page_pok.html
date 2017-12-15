@@ -1,0 +1,40 @@
+<html>	
+	<head>
+		<title>Halaman POK</title>
+	</head>
+
+	<body>
+		<table border='1'>
+			<tr>
+				<th>No. POK</th>
+				<th>Kode Program</th>
+				<th>Kode Kegiatan</th>
+				<th>Kode Output</th>
+				<th>Kode Komponen</th>
+				<th>Kode Akun</th>
+				<th>Posisi</th>
+				<th>Detail</th>
+				<th>Volume</th>
+				<th>Satuan Vol.</th>
+				<th>Pagu</th>
+				<th>Rev. POK</th>
+			</tr>
+			{% for data in list_data %}
+			<tr>
+				<td>{{ data.id_tabel_pok }}</td>
+				<td>{{ data.id_program }}</td>
+				<td>{{ data.kegiatan.id_pok }}</td>
+				<td>{{ data.output.id_pok }}</td>
+				<td>{{ data.komponen.id_pok }}</td>
+				<td>{{ data.id_akun }}</td>
+				<td>{{ data.terms.deskripsi }}</td>
+				<td>{{ data.detail.deskripsi }}</td>
+				<td>{{ data.jumlah_volume }}</td>
+				<td>{{ data.satuan_volume.deskripsi }}</td>
+				<td>{{ data.jumlah_pagu }}</td>
+				<td>{{ data.no_revisi }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>

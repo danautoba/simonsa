@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Transaksi per Komponen</title>
+</head>
+<body>
+		<center><h2>{{ komponen }}</h2></center>
+		<table border="1">
+			<tr>
+				<th>No. Akun</th>
+				<th>Deskripsi akun</th>
+				<th>Tanggal Transaksi</th>
+				<th>Keterangan Transaksi</th>
+				<th>Jumlah Transaksi</th>
+				<th>Jumlah Volume</th>
+			</tr>
+			{% for akun, desk_akun, tgl_transaksi, keterangan, jlh_transaksi, jlh_volume in gabung %}
+			<tr>
+				<td>{{ akun }}</td>
+				<td>{{ desk_akun }}</td>
+				<td>{{ tgl_transaksi }}</td>
+				<td>{{ keterangan }}</td>
+				<td>{{ '{0:,}'.format(jlh_transaksi) }}</td>
+				<td>{{ jlh_volume }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+</body>
+</html>

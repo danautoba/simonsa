@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Input Data POK</title>
+</head>
+<body>
+<form action="{{ url_for('prosesdata') }}" method = 'post'>
+	Program :
+	<select name="program">
+	{% for program in list_program %}
+		<option>{{ program.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Kegiatan :
+	<select name="kegiatan">
+	{% for kegiatan in list_kegiatan %}
+		<option>{{ kegiatan.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Output :
+	<select name="output">
+	{% for output in list_output %}
+		<option>{{ output.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Komponen :
+	<select name="komponen">
+	{% for komponen in list_komponen %}
+		<option>{{ komponen.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Akun :
+	<select name="akun">
+	{% for akun in list_akun %}
+		<option>{{ akun.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Detail :
+	<select name="detail">
+	{% for detail in list_detail %}
+		<option>{{ detail.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Posisi :
+	<select name="posisi">
+	{% for posisi in list_posisi %}
+		<option>{{ posisi.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Satuan volume :
+	<select name="satuan_volume">
+	{% for satuan in list_satuan_volume %}
+		<option>{{ satuan.deskripsi }}</option>
+	{% endfor %}
+	</select>
+	<br>
+
+	Jumlah volume :
+	<input type="number" name="jumlah_volume">
+	<br>
+
+	Jumlah pagu :
+	<input type="number" name="jumlah_pagu">
+	<br>
+
+	<input type="submit" value="Submit" name="kirim">
+	<input type="reset">
+
+
+</form>
+</html>

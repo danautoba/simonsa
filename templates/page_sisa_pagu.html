@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sisa pagu</title>
+</head>
+<body>
+	<center><h1>Halaman Sisa Pagu</h1></center>
+	<table border="1">
+		<tr>
+			<th>Program</th>
+			<th>Kegiatan</th>
+			<th>Output</th>
+			<th>Komponen</th>
+			<th>Akun</th>
+			<th>Detail</th>
+			<th>Jumlah Volume</th>
+			<th>Jumlah Pagu</th>
+			<th>Sisa Volume</th>
+			<th>Sisa pagu</th>
+		</tr>
+		{% for id_tabel_pok, program, kegiatan, output, komponen, akun, detail, jumlah_volume, satuan_volume, jumlah_pagu, selisih_volume, selisih_pagu in gabung %}
+		<tr>
+			<td>{{ program }}</td>
+			<td>{{ kegiatan }}</td>
+			<td>{{ output }}</td>
+			<td>{{ komponen }}</td>
+			<td>{{ akun }}</td>
+			<td>{{ detail }}</td>
+			<td>{{ '{0:,}'.format(jumlah_volume) }} {{ satuan_volume }}</td>
+			<td>{{ '{0:,}'.format(jumlah_pagu) }}</td>
+			<td>{{ '{0:,}'.format(selisih_volume) }} {{ satuan_volume }}</td>
+			<td>{{ '{0:,}'.format(selisih_pagu) }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</body>
+</html>

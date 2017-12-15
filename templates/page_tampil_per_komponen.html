@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Data Per Komponen</title>
+</head>
+<body>
+		<center><h1>{{ query_pok[0].komponen.deskripsi }}</h1></center>
+		<table border="1">
+			<tr>
+				<th>No. tabel POK</th>
+				<th>Komponen</th>
+				<th>Akun</th>
+				<th>Detail</th>
+				<th>Pagu</th>
+				<th>Sisa Volume</th>
+				<th>Sisa Pagu</th>
+			</tr>
+			{% for id_tabel_pok, komponen, akun, detail, jumlah_volume, satuan_volume, jumlah_pagu, sisa_volume, sisa_pagu in gabung %}
+			<tr>
+				<td>{{ id_tabel_pok }}</td>
+				<td>{{ komponen }}</td>
+				<td>{{ akun }}</td>
+				<td>{{ detail }}</td>
+				<td>{{ '{0:,}'.format(jumlah_pagu) }}</td>
+				<td>{{ '{0:,}'.format(sisa_volume) }} {{ satuan_volume }}</td>
+				<td>{{ '{0:,}'.format(sisa_pagu) }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+</body>
+</html>

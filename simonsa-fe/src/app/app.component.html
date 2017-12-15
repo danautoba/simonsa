@@ -1,0 +1,129 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header navbar-brand">
+        <b>SIMONSA</b>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Beranda</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Transaksi<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="getKomponen()" href="#">Input transaksi</a></li>
+              <li><a (click)="getTransaksi()" href="#">Lihat transaksi</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Revisi<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a (click)="getPok()" href="#">Edit POK</a></li>
+              <li><a href="#">Print POK revisi</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+      <div *ngIf="tampilPok">
+          <table class="table table-condensed table-hover table-striped">
+            <tr>
+              <th>Kode Program</th>
+              <th>Kode Kegiatan</th>
+              <th>Kode Output</th>
+              <th>Kode Komponen</th>
+              <th>Akun</th>
+              <th>Detail</th>
+              <th>Terms</th>
+              <th>Volume</th>
+              <th>Pagu</th>
+            </tr>
+            <tr *ngFor="let key of list_pok | keys">
+              <td>{{ key.value["item_tabel_pok"][0] }}</td>
+              <td>{{ key.value["item_tabel_pok"][1] }}</td>
+              <td>{{ key.value["item_tabel_pok"][2] }}</td>
+              <td>{{ key.value["item_tabel_pok"][3] }}</td>
+              <td>{{ key.value["item_tabel_pok"][4] }}</td>
+              <td>{{ key.value["item_tabel_pok"][5] }}</td>
+              <td>{{ key.value["item_tabel_pok"][6] }}</td>
+              <td>{{ key.value["item_tabel_pok"][7] }} {{ key.value["item_tabel_pok"][8] }}</td>
+              <td>{{ key.value["item_tabel_pok"][9] }}</td>
+            </tr>
+          </table>
+      </div>
+
+      <div *ngIf="tampilTransaksi">
+          <table class="table table-condensed table-hover table-striped">
+            <tr>
+              <th>Kode Transaksi</th>
+              <th>Kode Tabel POK</th>
+              <th>Tanggal Transaksi</th>
+              <th>Volume</th>
+              <th>Jumlah Transaksi</th>
+              <th>Keterangan</th>
+            </tr>
+            <tr *ngFor="let key of list_transaksi | keys">
+              <td>{{ key.key }}</td>
+              <td>{{ key.value["data_transaksi"][0] }}</td>
+              <td>{{ key.value["data_transaksi"][2] }}</td>
+              <td>{{ key.value["data_transaksi"][3] }} {{ key.value["data_transaksi"][4] }}</td>
+              <td>{{ key.value["data_transaksi"][5] }}</td>
+              <td>{{ key.value["data_transaksi"][6] }}</td>
+            </tr>
+          </table>
+      </div>
+
+      <div *ngIf="tampilFormTransaksi">
+        <h3>Input transaksi</h3>
+        <form class="form-horizontal"  (ngSubmit)="simpanTransaksi(f.value)"  #f="ngForm">
+          <div class="form-group">
+            <label class="col-sm-2">Komponen POK</label>
+            <div class="col-sm-5">
+              <select [(ngModel)]="pilihKomponen" class="form-control" name="pilih_komponen" (change)="getKomponenItems(pilihKomponen.value)">
+                <option *ngFor="let key of item_komponen | keys" [ngValue]="key.key">{{ key.key }} - {{ key.value[1] }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div *ngIf="tampilFormAkun">
+
+            <div class="form-group">
+              <label class="col-sm-2">Akun</label>
+              <div class="col-sm-5">
+                <select [(ngModel)]="pilihAkun" class="form-control" name="pilih_akun"  (change)="getAtomicItems(pilihAkun.value)">
+                  <option *ngFor="let key of item_komponen_lain | keys" [ngValue]="key.value[5]">{{ key.value[6] }}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-2">Detail</label>
+              <div class="col-sm-5">
+                <select [(ngModel)]="pilihDetail" class="form-control" name="pilih_detail" (change)="getIdTabelPOK(pilihDetail.value)">
+                  <option *ngFor="let key of item_atomic | keys" [ngValue]="key.value[7]">{{ key.value[8] }}</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Simpan</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

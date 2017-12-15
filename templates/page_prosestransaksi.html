@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Proses transaksi</title>
+</head>
+<body>
+<form action="{{ url_for('test') }}" method="post">
+	<table border="1">
+		<tr>
+			<th>ID POK</th>
+			<th>Kegiatan</th>
+			<th>Output</th>
+			<th>No. Akun</th>
+			<th>Detail</th>
+			<th>Volume</th>
+			<th>Jumlah Pagu</th>
+			<th>Pemakaian</th>
+			<th>Volume</th>
+			<th>Tanggal</th>
+			<th>Keterangan</th>
+			<th>Simpan</th>
+		</tr>		
+		{% for query_db in query_id_pok %}
+		<tr>
+			<td>{{ query_db.id_tabel_pok }}</td>
+			<td>{{ query_db.kegiatan.id_pok }}</td>
+			<td>{{ query_db.output.id_pok }}</td>
+			<td>{{ query_db.id_akun }}</td>
+			<td>{{ query_db.detail.deskripsi }}</td>
+			<td>{{ query_db.jumlah_volume }} {{ query_db.satuan_volume.deskripsi }}</td>
+			<td>{{ query_db.jumlah_pagu }}</td>
+			<td><input type="number" name="input_pemakaian{{ query_db.id_tabel_pok }}"></td>
+			<td><input type="number" name="input_volume{{ query_db.id_tabel_pok }}"></td>
+			<td><input type="date" name="input_date{{ query_db.id_tabel_pok }}"></td>
+			<td><textarea name="input_keterangan{{ query_db.id_tabel_pok }}"></textarea></td>
+			<td><input type="checkbox" name="simpan" value="{{ query_db.id_tabel_pok }}"></td>
+		</tr>
+		{% endfor %}
+	</table>
+	<input type="submit" value="Kirim"> <input type="reset" value="Reset">
+</form>
+</body>
+</html>
