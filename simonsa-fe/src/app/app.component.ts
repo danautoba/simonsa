@@ -30,6 +30,8 @@ export class AppComponent {
   pilihKomponen:number;
   pilihAkun:number;
   pilihDetail:number;
+  id:KomponenJson;
+  id_pok:number;
 
   title = 'Simonsa';
   pok_url = 'http://localhost:5000/api/pok';
@@ -46,7 +48,7 @@ export class AppComponent {
   items_komponen_pok:KomponenJson;
   item_komponen_lain:KomponenJson;
   item_atomic:KomponenJson;
-  idTabelPok:KomponenJson;
+  idPok:KomponenJson;
   item_komponen:Komponen;
 
 
@@ -118,6 +120,7 @@ export class AppComponent {
   				console.log(this.item_atomic);
   				console.log(this.pilihKomponen);
   				console.log(this.pilihAkun);
+
   			}
  		);
   	}
@@ -128,8 +131,8 @@ export class AppComponent {
   			.get(this.pok_url_khusus+this.pilihKomponen+"/"+this.pilihAkun+"/"+this.pilihDetail)
   			.subscribe(
   					(id_tabel_pok:KomponenJson) => {
-  						this.idTabelPok = id_tabel_pok;
-  						console.log(this.idTabelPok);
+  						this.idPok = id_tabel_pok;
+  						console.log(this.idPok['item_tabel_pok']);
   						console.log(this.pilihKomponen);
   						console.log(this.pilihAkun);
   						console.log(this.pilihDetail);
