@@ -79,23 +79,39 @@
 
       <div *ngIf="tampilFormTransaksi">
         <h3>Input transaksi</h3>
-        <form class="form-horizontal"  (ngSubmit)="simpanTransaksi(f.value)"  #f="ngForm">
+        <form 
+          class="form-horizontal"  
+          (ngSubmit)="simpanTransaksi(f.value)"  
+          #f="ngForm">
           <div class="form-group">
             <label class="col-sm-2">Komponen POK</label>
             <div class="col-sm-5">
-              <select [(ngModel)]="pilihKomponen" class="form-control" name="pilih_komponen" (change)="getKomponenItems(pilihKomponen.value)">
-                <option *ngFor="let key of item_komponen | keys" [ngValue]="key.key">{{ key.key }} - {{ key.value[1] }}</option>
+              <select 
+                ngModel
+                #pilihKomponen 
+                class="form-control" 
+                name="pilih_komponen" 
+                (change)="getKomponenItems(pilihKomponen.value)">
+                <option 
+                  *ngFor="let key of item_komponen | keys" 
+                  [value]="key.key">{{ key.key }} - {{ key.value[1] }}</option>
               </select>
             </div>
           </div>
 
           <div *ngIf="tampilFormAkun">
-
             <div class="form-group">
               <label class="col-sm-2">Akun</label>
               <div class="col-sm-5">
-                <select [(ngModel)]="pilihAkun" class="form-control" name="pilih_akun"  (change)="getAtomicItems(pilihAkun.value)">
-                  <option *ngFor="let key of item_komponen_lain?.item_tabel_pok | keys" [ngValue]="key.value[5]">{{ key.value[5] }} - {{ key.value[6] }}</option>
+                <select 
+                  ngModel
+                  #pilihAkun 
+                  class="form-control" 
+                  name="pilih_akun"  
+                  (change)="getAtomicItems(pilihKomponen.value, pilihAkun.value)">
+                  <option 
+                    *ngFor="let key of item_komponen_lain?.item_tabel_pok | keys" 
+                    [value]="key.value[5]">{{ key.value[5] }} - {{ key.value[6] }}</option>
                 </select>
               </div>
             </div>
@@ -103,8 +119,15 @@
             <div class="form-group">
               <label class="col-sm-2">Detail</label>
               <div class="col-sm-5">
-                <select [(ngModel)]="pilihDetail" class="form-control" name="pilih_detail" (change)="getIdTabelPOK(pilihDetail.value)">
-                  <option *ngFor="let key of item_atomic?.item_tabel_pok | keys" [ngValue]="key.value[7]">{{ key.value[8] }} - {{ key.value[9] }} - {{ key.value[10] }} {{ key.value[11] }}</option>
+                <select 
+                  ngModel
+                  #pilihDetail 
+                  class="form-control" 
+                  name="pilih_detail" 
+                  (change)="getIdTabelPOK(pilihKomponen.value, pilihAkun.value, pilihDetail.value)">
+                  <option 
+                    *ngFor="let key of item_atomic?.item_tabel_pok | keys" 
+                    [value]="key.value[7]">{{ key.value[8] }} - {{ key.value[9] }} - {{ key.value[10] }} {{ key.value[11] }}</option>
                 </select>
               </div>
             </div>
@@ -121,6 +144,7 @@
                   <th>Entri Volume Trans.</th>
                   <th>Entri Jumlah Trans.</th>
                   <th>Entri Keterangan</th>
+                  <th>Simpan</th>
                 </tr>
                 <tr *ngFor="let id of idPok?.item_tabel_pok | keys">
                   <td>{{ id.key }}</td>
@@ -130,26 +154,43 @@
                   <td>{{ id.value[10] }} {{ id.value[11] }}</td>
                   <td>{{ id.value[12] }}</td>
                   <td>
-                    <input  class="form-control" type="number" name="input_volume">
+                    <input 
+                      [(ngModel)]="id.key" 
+                      type="number" 
+                      name="id_tabel_pok" 
+                      >
+                    <input  
+                      ngModel
+                      class="form-control" 
+                      type="number" 
+                      name="input_volume" 
+                      >
                   </td>
                   <td>
-                    <input  class="form-control" type="number" name="input_jumlah">
+                    <input 
+                      ngModel 
+                      class="form-control" 
+                      type="number" 
+                      name="input_jumlah" 
+                      >
                   </td>
                   <td>
-                    <textarea  class="form-control" name="input_keterangan" rows="1"></textarea>
+                    <textarea 
+                      ngModel 
+                      class="form-control" 
+                      name="input_keterangan" 
+                      rows="1" 
+                      >    
+                    </textarea>
+                  </td>
+                  <td>
+                      <button value="simpan">Simpan</button>
                   </td>
                 </tr>
               </table>
             </div>
           </div>
 
-
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Simpan</button>
-              <button type="reset" class="btn btn-default">Reset</button>
-            </div>
-          </div>
 
         </form>
       </div>

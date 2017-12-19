@@ -42,6 +42,7 @@ export class AppComponent {
   tampilTransaksi = false;
   tampilFormTransaksi = false;
   tampilFormAkun = false;
+  public id_komponen;
 
   list_pok:PokJson;
   list_transaksi:TransaksiJson;
@@ -52,7 +53,9 @@ export class AppComponent {
   item_komponen:Komponen;
 
 
-  constructor (private http:HttpClient) {}
+  constructor (private http:HttpClient) {
+    
+  }
 
   getPok() {
   	this.http
@@ -96,14 +99,14 @@ export class AppComponent {
   		this.tampilPok = false;
   	}
 
-  getKomponenItems() {
+  getKomponenItems(id_komponen:number) {
   	this.http
-  		.get(this.pok_url_khusus+this.pilihKomponen)
+  		.get(this.pok_url_khusus+id_komponen)
   		.subscribe(
   			(itemkomponen:KomponenJson) => {
   				this.item_komponen_lain = itemkomponen;
   				console.log(this.item_komponen_lain);
-  				console.log(this.pilihKomponen);
+  				console.log(id_komponen);
   			}
   		);
   		this.tampilFormAkun = true;
@@ -111,31 +114,31 @@ export class AppComponent {
 
 
 
-    getAtomicItems() {
+    getAtomicItems(id_komponen, id_akun) {
   	this.http
-  		.get(this.pok_url_khusus+this.pilihKomponen+"/"+this.pilihAkun)
- 		.subscribe(
+  		.get(this.pok_url_khusus+id_komponen+"/"+id_akun)
+ 		  .subscribe(
  			(itematomic:KomponenJson) => {
   				this.item_atomic = itematomic;
   				console.log(this.item_atomic);
-  				console.log(this.pilihKomponen);
-  				console.log(this.pilihAkun);
+  				console.log(id_komponen);
+  				console.log(id_akun);
 
   			}
  		);
   	}
 
 
-  	getIdTabelPOK() {
+  	getIdTabelPOK(id_komponen, id_akun, id_detail) {
   		this.http
-  			.get(this.pok_url_khusus+this.pilihKomponen+"/"+this.pilihAkun+"/"+this.pilihDetail)
+  			.get(this.pok_url_khusus+id_komponen+"/"+id_akun+"/"+id_detail)
   			.subscribe(
   					(id_tabel_pok:KomponenJson) => {
   						this.idPok = id_tabel_pok;
   						console.log(this.idPok['item_tabel_pok']);
-  						console.log(this.pilihKomponen);
-  						console.log(this.pilihAkun);
-  						console.log(this.pilihDetail);
+  						console.log(id_komponen);
+  						console.log(id_akun);
+  						console.log(id_detail);
   					}
   				);
   	}
