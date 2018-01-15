@@ -149,7 +149,7 @@ class Transaksi(db.Model):
 	id_transaksi = db.Column(db.BigInteger, primary_key=True)
 	id_tabel_pok = db.Column(db.Integer, db.ForeignKey('pok.id_tabel_pok'))
 	id_user = db.Column(db.Integer)
-	tanggal_transaksi = db.Column(db.DateTime)
+	tanggal_transaksi = db.Column(db.Date)
 	volume = db.Column(db.Integer)
 	id_satuan_volume = db.Column(db.Integer, db.ForeignKey('satuan_volume.id_satuan_volume'))
 	jumlah_transaksi = db.Column(db.Integer)
@@ -181,15 +181,17 @@ class Transaksi(db.Model):
 
 	@staticmethod
 	def from_json_transaksi(data_transaksi):
+		id_transaksi = int(str(uuid4().int)[:10])
 		id_tabel_pok = data_transaksi.get('id_tabel_pok')
+		id_user = data_transaksi.get('id_user')
 		tanggal_transaksi = data_transaksi.get('tanggal_transaksi')
 		volume = data_transaksi.get('volume')
 		id_satuan_volume = data_transaksi.get('id_satuan_volume')
 		jumlah_transaksi = data_transaksi.get('jumlah_transaksi')
 		keterangan = data_transaksi.get('keterangan')
-		return Transaksi(	id_transaksi = int(str(uuid4().int)[:10]), 
+		return Transaksi(	id_transaksi = id_transaksi, 
 							id_tabel_pok = id_tabel_pok, 
-							id_user = 20, 
+							id_user = id_user, 
 							tanggal_transaksi = tanggal_transaksi, 
 							volume = volume, 
 							id_satuan_volume = id_satuan_volume, 
