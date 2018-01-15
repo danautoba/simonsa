@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Observable";
 import { NgForm, FormGroup, FormControl } from "@angular/forms";
 import "rxjs/Rx";
 import 'rxjs/add/operator/map';
-import { PokJson, TransaksiJson, KomponenJson, Komponen } from './data';
+import { PokJson, TransaksiJson, KomponenJson, Komponen, Payload } from './data';
 
 @Pipe({name: 'keys'})
 export class KeysPipe implements PipeTransform {
@@ -31,14 +31,19 @@ export class AppComponent {
   pilihAkun:number;
   pilihDetail:number;
   id:KomponenJson;
-  id_pok:number=0;
-  temp_var:number[];
+
 
   title = 'Simonsa';
-  pok_url = 'http://localhost:5000/api/pok';
-  pok_url_khusus = 'http://localhost:5000/api/pok/khusus/';
-  transaksi_url = 'http://localhost:5000/api/transaksi';
-  komponen_url = 'http://localhost:5000/api/komponen';
+  //pok_url = 'http://localhost:5000/api/pok';
+  //pok_url_khusus = 'http://localhost:5000/api/pok/khusus/';
+  //transaksi_url = 'http://localhost:5000/api/transaksi';
+  //komponen_url = 'http://localhost:5000/api/komponen';
+
+  pok_url = 'http://dapurmaya.com:9000/api/pok';
+  pok_url_khusus = 'http://dapurmaya.com:9000/api/pok/khusus/';
+  transaksi_url = 'http://dapurmaya.com:9000/api/transaksi';
+  komponen_url = 'http://dapurmaya.com:9000/api/komponen';
+  
   tampilPok = false;
   tampilTransaksi = false;
   tampilFormTransaksi = false;
@@ -52,6 +57,7 @@ export class AppComponent {
   item_atomic:KomponenJson;
   idPok:KomponenJson;
   item_komponen:Komponen;
+  payload:any;
 
 
   constructor (private http:HttpClient) {
@@ -151,6 +157,23 @@ export class AppComponent {
       console.log(input_volume);
       console.log(input_jumlah_biaya);
   	}
+
+
+    postTransaksi(id_tabel_pok, id_user, tanggal_transaksi, volume, id_satuan_volume, jumlah_transaksi, keterangan) {
+      this.payload = {
+                      "id_tabel_pok":id_tabel_pok, 
+                      "id_user":id_user, 
+                      "tanggal_transaksi":tanggal_transaksi, 
+                      "volume":volume, 
+                      "id_satuan_volume":id_satuan_volume, 
+                      "jumlah_transaksi":jumlah_transaksi, 
+                      "keterangan":keterangan
+                     };
+      this.http
+      .post(this.transaksi_url, this.payload)
+      .subscribe(res => {console.log(res)
+      })
+    }
 
   ngOnInit():void {
   	

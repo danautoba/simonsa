@@ -142,8 +142,11 @@
             <table class="table table-condensed table-striped table-hover">
               <tr>
                 <th>ID Tabel POK</th>
+                <th>Input Tanggal Transaksi</th>
                 <th>Input Volume</th>
+                <th>Satuan volume</th>
                 <th>Input Jumlah biaya</th>
+                <th>Keterangan</th>
                 <th>Simpan</th>
               </tr>
               <tr *ngFor="let id of idPok?.item_tabel_pok | keys; let i=index">
@@ -158,25 +161,34 @@
                   >
                 </td>
                 <div ngModelGroup="user_input">
+                <td><input ngModel type="date" [name]="'input_tanggal'+i" #b></td>
                 <td>
                   <input 
                     type="number" 
                     [name]="'input_volume'+i" 
                     ngModel
-                    #b 
+                    #c 
                   >
                 </td>
+                <td><input ngModel type="number" [name]="'input_id_satuan_volume'+i" #d></td>
                 <td>
                   <input 
                     type="number" 
                     [name]="'input_jumlah_biaya'+i" 
                     ngModel
-                    #c
+                    #e
                   >
                 </td>
+                <td><textarea ngModel rows="4" cols="5" [name]="'input_keterangan'+i" #f></textarea></td>
                 </div>
                 <td>
-                <button (click)="simpanTransaksi(id_tabel_pok.value, b.value, c.value);g.controls['user_input'].reset()" class="btn btn-success" type="submit">Simpan</button>
+
+                <button 
+                  (click)="postTransaksi(id_tabel_pok.value, b.value, c.value, d.value, e.value,f.value); g.controls['user_input'].reset()" 
+                  class="btn btn-success" 
+                  type="submit">Simpan
+                </button>
+
                 </td>
               </tr>
             </table>
