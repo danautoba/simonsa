@@ -1,12 +1,12 @@
 import { Component, Input, Output} from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import { NgForm, FormGroup, FormControl } from "@angular/forms";
 import "rxjs/Rx";
 import 'rxjs/add/operator/map';
-import { PokJson, TransaksiJson, KomponenJson, Komponen } from './data';
+import { PokJson, TransaksiJson, KomponenJson, Komponen, Payload } from './data';
 
 @Pipe({name: 'keys'})
 export class KeysPipe implements PipeTransform {
@@ -31,18 +31,23 @@ export class AppComponent {
   pilihAkun:number;
   pilihDetail:number;
   id:KomponenJson;
-  id_pok:number;
+
 
   title = 'Simonsa';
-  pok_url = 'http://localhost:5000/api/pok';
-  pok_url_khusus = 'http://localhost:5000/api/pok/khusus/';
-  transaksi_url = 'http://localhost:5000/api/transaksi';
-  komponen_url = 'http://localhost:5000/api/komponen';
+  //pok_url = 'http://localhost:5000/api/pok';
+  //pok_url_khusus = 'http://localhost:5000/api/pok/khusus/';
+  //transaksi_url = 'http://localhost:5000/api/transaksi';
+  //komponen_url = 'http://localhost:5000/api/komponen';
+
+  pok_url = 'http://dapurmaya.com:9000/api/pok';
+  pok_url_khusus = 'http://dapurmaya.com:9000/api/pok/khusus/';
+  transaksi_url = 'http://dapurmaya.com:9000/api/transaksi';
+  komponen_url = 'http://dapurmaya.com:9000/api/komponen';
+  
   tampilPok = false;
   tampilTransaksi = false;
   tampilFormTransaksi = false;
   tampilFormAkun = false;
-  public id_komponen;
 
   list_pok:PokJson;
   list_transaksi:TransaksiJson;
@@ -51,10 +56,11 @@ export class AppComponent {
   item_atomic:KomponenJson;
   idPok:KomponenJson;
   item_komponen:Komponen;
+  payload:any;
 
 
   constructor (private http:HttpClient) {
-    
+
   }
 
   getPok() {
@@ -135,6 +141,7 @@ export class AppComponent {
   			.subscribe(
   					(id_tabel_pok:KomponenJson) => {
   						this.idPok = id_tabel_pok;
+              console.log(this.idPok);
   						console.log(this.idPok['item_tabel_pok']);
   						console.log(id_komponen);
   						console.log(id_akun);
@@ -144,9 +151,29 @@ export class AppComponent {
   	}
 
 
-  	simpanTransaksi(f) {
-  		console.log(f);
+  	simpanTransaksi(id_tabel_pok, input_volume, input_jumlah_biaya) {
+   		console.log(id_tabel_pok);
+      console.log(input_volume);
+      console.log(input_jumlah_biaya);
   	}
+
+
+    postTransaksi(id_tabel_pok, id_user, tanggal_transaksi, volume, id_satuan_volume, jumlah_transaksi, keterangan) {
+      this.payload = {
+                      "id_tabel_pok":id_tabel_pok, 
+                      "id_user":id_user, 
+                      "tanggal_transaksi":tanggal_transaksi, 
+                      "volume":volume, 
+                      "id_satuan_volume":id_satuan_volume, 
+                      "jumlah_transaksi":jumlah_transaksi, 
+                      "keterangan":keterangan
+                     };
+      console.log(this.payload);
+      this.http
+      .post(this.transaksi_url, this.payload, {headers:new HttpHeaders().set('Access-Control-Allow-Origin', '*')})
+      .subscribe(res => {console.log(res)
+      });
+    }
 
   ngOnInit():void {
   	

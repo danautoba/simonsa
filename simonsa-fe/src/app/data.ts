@@ -50,4 +50,16 @@ export interface Komponen{
 	}
 }
 
+
+
+
+export interface Payload {
+	["id_tabel_pok"]:number;
+	["tanggal_transaksi"]:string;
+	["volume"]:number;
+	["id_satuan_volume"]:number;
+	["jumlah_transaksi"]:number;
+	["keterangan"]:string;
+
+}
 // PokJson ---> {"id_tabel_pok": {"item_tabel_pok":[data1, data2, data3]}}

@@ -81,7 +81,7 @@
         <h3>Input transaksi</h3>
         <form 
           class="form-horizontal"  
-          (ngSubmit)="simpanTransaksi(f.value)"  
+          (ngSubmit)="simpanTransaksi(f)"  
           #f="ngForm">
           <div class="form-group">
             <label class="col-sm-2">Komponen POK</label>
@@ -132,67 +132,72 @@
               </div>
             </div>
             <br>
-            <div>
-              <table class="table table-condensed table-striped table-hover"> 
-                <tr>
-                  <th>Id tabel POK</th>
-                  <th>Komponen</th>
-                  <th>Akun</th>
-                  <th>Detail</th>
-                  <th>Volume</th>
-                  <th>Pagu</th>
-                  <th>Entri Volume Trans.</th>
-                  <th>Entri Jumlah Trans.</th>
-                  <th>Entri Keterangan</th>
-                  <th>Simpan</th>
-                </tr>
-                <tr *ngFor="let id of idPok?.item_tabel_pok | keys">
-                  <td>{{ id.key }}</td>
-                  <td>{{ id.value[3] }}</td>
-                  <td>{{ id.value[5] }}</td>
-                  <td>{{ id.value[8] }}</td>
-                  <td>{{ id.value[10] }} {{ id.value[11] }}</td>
-                  <td>{{ id.value[12] }}</td>
-                  <td>
-                    <input 
-                      [(ngModel)]="id.key" 
-                      type="number" 
-                      name="id_tabel_pok" 
-                      >
-                    <input  
-                      ngModel
-                      class="form-control" 
-                      type="number" 
-                      name="input_volume" 
-                      >
-                  </td>
-                  <td>
-                    <input 
-                      ngModel 
-                      class="form-control" 
-                      type="number" 
-                      name="input_jumlah" 
-                      >
-                  </td>
-                  <td>
-                    <textarea 
-                      ngModel 
-                      class="form-control" 
-                      name="input_keterangan" 
-                      rows="1" 
-                      >    
-                    </textarea>
-                  </td>
-                  <td>
-                      <button value="simpan">Simpan</button>
-                  </td>
-                </tr>
-              </table>
-            </div>
           </div>
-
-
         </form>
+
+        <div>
+          <form #g="ngForm">
+            <table border="1">
+              <tr>
+                <th>ID Tabel POK</th>
+                <th>Input Tanggal Transaksi</th>
+                <th>Input Volume</th>
+                <th>Satuan volume</th>
+                <th>Input Jumlah biaya</th>
+                <th>Keterangan</th>
+                <th>Simpan</th>
+              </tr>
+              <tr *ngFor="let id of idPok?.item_tabel_pok | keys; let i=index">
+                <td>
+                  <input 
+                    disabled
+                    [(ngModel)]="id.key" 
+                    type="number" 
+                    [name]="'id_tabel_pok'+i" 
+                    [value]="id.key" 
+                    #id_tabel_pok
+                  >
+                </td>
+                
+                  <td>
+                    <input ngModel type="date" [name]="'input_tanggal'+i" #tanggal_transaksi>
+                  </td>
+                  <td>
+                  <input 
+                    type="number" 
+                    [name]="'input_volume'+i" 
+                    ngModel
+                    #volume 
+                  >
+                  </td>
+                  <td>
+                    <select ngModel [name]="'input_id_satuan_volume'+i" #id_satuan_volume>
+                      <option [value]="id.value[13]">{{ id.value[11] }}</option>
+                    </select>
+                  </td>
+                  <td>
+                  <input 
+                    type="number" 
+                    [name]="'input_jumlah_biaya'+i" 
+                    ngModel
+                    #jumlah_biaya
+                  >
+                  </td>
+                  <td>
+                    <textarea ngModel rows="2" cols="5" [name]="'input_keterangan'+i" #keterangan></textarea>
+                  </td>
+              
+                <td>
+                  <button 
+                    (click)="postTransaksi(id_tabel_pok.value, 20, tanggal_transaksi.value, volume.value, id_satuan_volume.value, jumlah_biaya.value, keterangan.value)" 
+                    class="btn btn-success" 
+                    type="submit">Simpan
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </form>
+        </div>
       </div>
 
     </div>
