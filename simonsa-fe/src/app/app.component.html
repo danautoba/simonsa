@@ -134,12 +134,10 @@
             <br>
           </div>
         </form>
+
         <div>
-          <form
-          #g="ngForm"
-          class="form-horizontal"
-          >
-            <table class="table table-condensed table-striped table-hover">
+          <form #g="ngForm">
+            <table border="1">
               <tr>
                 <th>ID Tabel POK</th>
                 <th>Input Tanggal Transaksi</th>
@@ -160,35 +158,41 @@
                     #id_tabel_pok
                   >
                 </td>
-                <div ngModelGroup="user_input">
-                <td><input ngModel type="date" [name]="'input_tanggal'+i" #b></td>
-                <td>
+                
+                  <td>
+                    <input ngModel type="date" [name]="'input_tanggal'+i" #tanggal_transaksi>
+                  </td>
+                  <td>
                   <input 
                     type="number" 
                     [name]="'input_volume'+i" 
                     ngModel
-                    #c 
+                    #volume 
                   >
-                </td>
-                <td><input ngModel type="number" [name]="'input_id_satuan_volume'+i" #d></td>
-                <td>
+                  </td>
+                  <td>
+                    <select ngModel [name]="'input_id_satuan_volume'+i" #id_satuan_volume>
+                      <option [value]="id.value[13]">{{ id.value[11] }}</option>
+                    </select>
+                  </td>
+                  <td>
                   <input 
                     type="number" 
                     [name]="'input_jumlah_biaya'+i" 
                     ngModel
-                    #e
+                    #jumlah_biaya
                   >
-                </td>
-                <td><textarea ngModel rows="4" cols="5" [name]="'input_keterangan'+i" #f></textarea></td>
-                </div>
+                  </td>
+                  <td>
+                    <textarea ngModel rows="2" cols="5" [name]="'input_keterangan'+i" #keterangan></textarea>
+                  </td>
+              
                 <td>
-
-                <button 
-                  (click)="postTransaksi(id_tabel_pok.value, b.value, c.value, d.value, e.value,f.value); g.controls['user_input'].reset()" 
-                  class="btn btn-success" 
-                  type="submit">Simpan
-                </button>
-
+                  <button 
+                    (click)="postTransaksi(id_tabel_pok.value, 20, tanggal_transaksi.value, volume.value, id_satuan_volume.value, jumlah_biaya.value, keterangan.value)" 
+                    class="btn btn-success" 
+                    type="submit">Simpan
+                  </button>
                 </td>
               </tr>
             </table>

@@ -1,6 +1,6 @@
 import { Component, Input, Output} from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { Observable } from "rxjs/Observable";
 import { NgForm, FormGroup, FormControl } from "@angular/forms";
@@ -48,7 +48,6 @@ export class AppComponent {
   tampilTransaksi = false;
   tampilFormTransaksi = false;
   tampilFormAkun = false;
-  public id_komponen;
 
   list_pok:PokJson;
   list_transaksi:TransaksiJson;
@@ -61,7 +60,7 @@ export class AppComponent {
 
 
   constructor (private http:HttpClient) {
-    
+
   }
 
   getPok() {
@@ -169,10 +168,11 @@ export class AppComponent {
                       "jumlah_transaksi":jumlah_transaksi, 
                       "keterangan":keterangan
                      };
+      console.log(this.payload);
       this.http
-      .post(this.transaksi_url, this.payload)
+      .post(this.transaksi_url, this.payload, {headers:new HttpHeaders().set('Access-Control-Allow-Origin', '*')})
       .subscribe(res => {console.log(res)
-      })
+      });
     }
 
   ngOnInit():void {
